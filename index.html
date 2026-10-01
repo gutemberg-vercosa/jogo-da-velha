@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jogo da Velha</title>
+  <meta name="description" content="Jogo da velha contra um computador que usa o algoritmo minimax, com três níveis de dificuldade e a análise de cada jogada.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭕</text></svg>">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Jogo da Velha</h1>
+      <p class="sub">Contra um computador que calcula todas as jogadas possíveis.</p>
+    </header>
+
+    <div class="controles">
+      <div class="seg" role="radiogroup" aria-label="Adversário" data-opcao="modo">
+        <button type="button" role="radio" data-valor="computador">Computador</button>
+        <button type="button" role="radio" data-valor="duas">Duas pessoas</button>
+      </div>
+      <div class="seg tres" role="radiogroup" aria-label="Dificuldade" data-opcao="nivel" id="niveis">
+        <button type="button" role="radio" data-valor="facil">Fácil</button>
+        <button type="button" role="radio" data-valor="medio">Médio</button>
+        <button type="button" role="radio" data-valor="impossivel">Impossível</button>
+      </div>
+    </div>
+
+    <section class="painel">
+      <div class="placar">
+        <div class="x"><span id="nome-x"></span><strong id="pontos-x">0</strong></div>
+        <div><span>Empates</span><strong id="pontos-empate">0</strong></div>
+        <div class="o"><span id="nome-o"></span><strong id="pontos-o">0</strong></div>
+      </div>
+
+      <p class="status" id="status" aria-live="polite"></p>
+      <div class="tabuleiro" id="tabuleiro" role="grid" aria-label="Tabuleiro"></div>
+
+      <label class="chave">
+        <input type="checkbox" id="analise" role="switch">
+        <span>Mostrar a análise das jogadas</span>
+      </label>
+      <p class="legenda" id="legenda" hidden>Em cada casa livre, o que acontece se você jogar ali e os dois lados jogarem perfeitamente depois.</p>
+    </section>
+
+    <div class="acoes">
+      <button type="button" class="primario" id="nova">Nova partida</button>
+      <button type="button" id="zerar">Zerar placar</button>
+    </div>
+
+    <details class="ref">
+      <summary>Como o computador joga</summary>
+      <ul>
+        <li>Ele usa o <strong>minimax</strong>: para cada casa livre, simula todas as partidas possíveis dali em diante, supondo que você também vai jogar o melhor possível, e escolhe a jogada com o melhor pior caso.</li>
+        <li>O jogo da velha tem poucas posições (menos de 6 mil), então dá para calcular tudo na hora. Cada posição é guardada depois de calculada, para não repetir a conta.</li>
+        <li>Vencer mais cedo vale mais. Por isso ele fecha o jogo assim que pode e, quando está perdendo, adia a derrota.</li>
+        <li><strong>Fácil</strong>: joga em qualquer casa livre. <strong>Médio</strong>: erra de propósito em 40% das jogadas. <strong>Impossível</strong>: sempre joga o melhor. Com os dois lados jogando bem, toda partida termina empatada.</li>
+        <li>Quem começa alterna a cada partida.</li>
+      </ul>
+    </details>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
